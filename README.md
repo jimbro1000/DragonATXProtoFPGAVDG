@@ -1,10 +1,10 @@
-# Dragon 32 ATX Prototype VDG
+# Dragon ATX Prototype FPGA VDG
 
 This repository contains the KiCad project files
 to produce the VDG component board for my
 ATX Prototype backplane.
 
-![Render of PCB top](./DragonATXProtoVDG.png)
+![Render of PCB top](./DragonATXProtoFPGAVDG.png)
 
 This design requires the ATX backplane board in order 
 to operate
@@ -23,71 +23,91 @@ should be left unpopulated
 This design has been completed using KiCad 9. Earlier
 versions of KiCad are not compatible
 
-## Theory of Operation - Video conversion
+## Design
 
-The video output of the 6847 is a form of YPrPb that
-encodes the green channel data over all three of the
-outputs.
+Unlike previous iterations that attempt to simply
+replicate the original 6847 using CPLD hardware, this
+design is aimed at a full upgrade and replacement for 
+the 6847 and 6883. By combining the functionality of
+the two chips are significant saving in complexity is
+achieved. There is no longer a requirement to 
+artificially synchronise the video against the CPU
+clock cycle, this is inherent as the video clock is
+tied directly to the cpu clock.
 
-To generate the RGB signal required for the AD724/725
-video encoder some maths needs to be applied to
-convert the YPrPb into the appropriate format.
+## SAM upgrades
 
-The maths requires 5 values to be generated
+The SAM replacement is based around the work done by
+Ciaran Anscomb to upgrade the SAM to include RAM paging.
+His design extended to 512KB which, while "adequate", 
+is wasteful of the target FPGA device which includes
+16MB of RAM. Of that 16MB only 2MB is directly accessed
+as a single block. The 2MB is 16bit wide (technically 4MB)
+but accessing both halves of the RAM adds extra complexity
+to the read/write cycle, just using one half is definitely
+simpler.
 
-Yn - the inverse signal of Y  
-B-Y - the inverse of Pb  
-Y-B - Pb  
-R-Y - the inverse of Pr  
-Y-R - Pr
+### Memory Paging ###
 
-Adding Yn to R-Y produces R  
-Adding Yn to Y-R and Y-B produces G  
-Adding Yn to B-Y produces B
+The upgraded SAM provides MMU capabilities, both paging and
+process (page protection). With 256 8K pages in the address
+space and each page can be allocated to RAM or ROM. Each 
+process has its own page map.
 
-All of the sums need weighting to make sure the results
-are in some form of balance:
+Processes are either:
+1. supervisor  
+2. display
+3. library (shared)
+4. user process 1
+5. user process 2
+6. user process 3
+7. user process 4
+8. user process 5
 
-R = 2Yn + 2.7(R-Y)  
-G = 2Yn + 6.8(Y-B) + 4.7(Y-R)  
-B = 3Yn + 2(B-Y)
+The shared process and display are used purely for 
+identification of shared pages.
 
-Further provision for balancing the channels is made
-through a potentiometer on each channel and the result
-is then normalised to provide the inputs to the AD724
+#### Display process ####
 
-## Theory of Operation - Format conversion
+The display process is used only for read operations
+by the VDG side of the clock cycle. The same pages can
+be shared with the supervisor or a user process.
 
-The 6847 video generator was designed to produce a 
-video signal in NTSC format. It has no external controls
-to change the format, thus in order to produce a PAL
-format some cheating is required in the form of padding
+### Blitter ###
 
-The native NTSC signal is produced at a 60Hz frame rate,
-while PAL requires 50Hz. In proportion the PAL video
-frame has extra lines (625 vs 525), this results in near
-identical lines per second between the formats (but not 
-quite identical, just within tolerance).
+The blitter provides out-of-process memory copy in one
+of 5 operations
 
-In terms of raw refresh rate though the PAL signal 
-requires an additional 100 lines of video signal are 
-produced. This is achieved by suspending the video clock
-for the 6847 and synthesizing 50 lines of blank video in
-the upper and lower margins of the display.
+1. Full page copy (8K copy from one page to another)
+2. Continuous block copy (within process address space)
+3. Shaped to continuous (within process address space)
+4. Continuous to shaped (within process address space)
+5. Shaped to shaped (within process address space)
 
-This is not the end of the story though - a more fundamental
-difference between NTSC and PAL is how colour information
-is encoded. NTSC provides no automatic correction for any
-phase errors in the signal while PAL using phase alternation
-(hence the name PAL). Producing a PAL signal from NTSC 
-requires the colour phase to be reversed on each consecutive
-line.
+All operations are defined by an origin, destination and 
+byte length (maximum is 8K)
 
-The original PAL padding circuitry this replaces used a
-LM1889 encoder for encoding the colour signal onto the
-carrier frequency but with the AD724 and AD725 encoders
-this is performed automatically.
+Shaped operations have two further parameters - width
+and gap. The width defines how many bytes in a row
+are copied and the gap the number of bytes to skip to
+the next run of bytes
 
-The circuit design retains the necessary logic for
-artificially producing the alternating signal but does
-not utilise it.
+Copying can only be performed between pages allocated
+to the initiating process
+
+Only a single blit operation can be performed at a time,
+all operations can be queued
+
+The blit operates at the highest clock speed achievable
+by the RAM and SAM. Nominally this is 166MHz with a 3 cycle 
+latency, the SAM operates at 28.6MHz and each byte copy
+takes 3 cycles. Effectively this means a copy rate of
+8 bytes per CPU clock cycle (using interleaved access
+between CPU, VDG and Blitter) at regular 0.89MHz CPU
+clock speeds. Running at a faster CPU speed would reduce
+the available slots for blit operations
+
+The number of cycles for the blitter will be adjusted
+to suit the cpu and vdg clock speeds
+
+A maximum copy speed can be achieved by halting the CPU
