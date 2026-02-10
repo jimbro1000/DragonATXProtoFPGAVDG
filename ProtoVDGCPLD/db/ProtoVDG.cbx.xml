@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="ProtoVDG">
+		<CBX_INST_ENTRY INSTANCE_NAME="|ProtoVDG|FormatTiming:FmtTiming|counter:lines|lpm_add_sub:Add0" CBX_FILE_NAME="add_sub_snh.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ProtoVDG|FormatTiming:FmtTiming|counterDbl:cols|lpm_add_sub:Add0" CBX_FILE_NAME="add_sub_8kh.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

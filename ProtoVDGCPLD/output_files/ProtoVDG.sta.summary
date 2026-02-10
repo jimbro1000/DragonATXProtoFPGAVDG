@@ -1,0 +1,41 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Setup 'FormatTiming:FmtTiming|counterDbl:cols|lpm_counter:nCount_rtl_0|dffs[0]'
+Slack : -26.300
+TNS   : -267.700
+
+Type  : Setup 'Clk'
+Slack : -9.000
+TNS   : -262.000
+
+Type  : Hold 'FormatTiming:FmtTiming|counterDbl:cols|lpm_counter:nCount_rtl_0|dffs[0]'
+Slack : -24.000
+TNS   : -259.000
+
+Type  : Hold 'Clk'
+Slack : -3.500
+TNS   : -31.500
+
+Type  : Recovery 'Clk'
+Slack : -48.500
+TNS   : -1275.000
+
+Type  : Removal 'Clk'
+Slack : 7.500
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'FormatTiming:FmtTiming|counterDbl:cols|lpm_counter:nCount_rtl_0|dffs[0]'
+Slack : -11.500
+TNS   : -505.600
+
+Type  : Minimum Pulse Width 'Clk'
+Slack : -3.500
+TNS   : -210.000
+
+Type  : Minimum Pulse Width 'FormatTiming:FmtTiming|counter:lines|count[3]'
+Slack : -3.500
+TNS   : -7.000
+
+------------------------------------------------------------

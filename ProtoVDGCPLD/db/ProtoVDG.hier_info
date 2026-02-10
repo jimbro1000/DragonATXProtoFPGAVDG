@@ -1,0 +1,572 @@
+|ProtoVDG
+AnG => AnG.IN4
+AnS => AnS.IN1
+Clk => Clk.IN2
+Css => Css.IN3
+Data[0] => Data[0].IN4
+Data[1] => Data[1].IN4
+Data[2] => Data[2].IN4
+Data[3] => Data[3].IN4
+Data[4] => Data[4].IN4
+Data[5] => Data[5].IN4
+Data[6] => Data[6].IN3
+Data[7] => Data[7].IN3
+Format => Format.IN1
+GM[0] => GM[0].IN4
+GM[1] => GM[1].IN4
+GM[2] => GM[2].IN4
+InE => InE.IN1
+Inv => Inv.IN1
+PALClk => PALClk.IN1
+ColourClock <= FormatSelect:FrmtSel.ColourClock
+DA0 <= FormatTiming:FmtTiming.DA0
+FSn <= FSn_DUMMY.DB_MAX_OUTPUT_PORT_TYPE
+HSn <= FormatTiming:FmtTiming.HSn
+OutputFormat <= OutputFormat_DUMMY.DB_MAX_OUTPUT_PORT_TYPE
+RPn <= RPn.DB_MAX_OUTPUT_PORT_TYPE
+RGB[0] <= ColourMux:Palette.RGB
+RGB[1] <= ColourMux:Palette.RGB
+RGB[2] <= ColourMux:Palette.RGB
+RGB[3] <= ColourMux:Palette.RGB
+RGB[4] <= ColourMux:Palette.RGB
+RGB[5] <= ColourMux:Palette.RGB
+RGB[6] <= ColourMux:Palette.RGB
+RGB[7] <= ColourMux:Palette.RGB
+RGB[8] <= ColourMux:Palette.RGB
+
+
+|ProtoVDG|FormatSelect:FrmtSel
+Clk => ColourClock.IN0
+Format => FrameFormat~reg0.DATAIN
+PALClk => ColourClock.IN1
+FSn => FrameFormat~reg0.CLK
+FrameFormat <= FrameFormat~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ColourClock <= ColourClock.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming
+GMode[0] => Equal3.IN5
+GMode[1] => Equal3.IN4
+GMode[2] => Equal3.IN3
+FrameFormat => frameTopRow[4].OUTPUTSELECT
+FrameFormat => frameTopRow[2].OUTPUTSELECT
+FrameFormat => frameTopRow[1].OUTPUTSELECT
+FrameFormat => frameTopRow[0].OUTPUTSELECT
+FrameFormat => frameBottomRow[4].OUTPUTSELECT
+FrameFormat => frameBottomRow[2].OUTPUTSELECT
+FrameFormat => frameBottomRow[1].OUTPUTSELECT
+FrameFormat => frameBottomRow[0].OUTPUTSELECT
+FrameFormat => frameAllRows[5].OUTPUTSELECT
+FrameFormat => frameAllRows[4].OUTPUTSELECT
+FrameFormat => frameAllRows[1].OUTPUTSELECT
+AnG => slowMode.IN1
+Clk => Clk.IN4
+PixelClk <= PixelClk.DB_MAX_OUTPUT_PORT_TYPE
+HSn <= HSn.DB_MAX_OUTPUT_PORT_TYPE
+FSn <= LessThan0.DB_MAX_OUTPUT_PORT_TYPE
+Load <= Equal2.DB_MAX_OUTPUT_PORT_TYPE
+alphaRow[0] <= counter:rc.count
+alphaRow[1] <= counter:rc.count
+alphaRow[2] <= counter:rc.count
+alphaRow[3] <= counter:rc.count
+DA0 <= u_da0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counter:lines
+clk => always0.IN0
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+count[0] <= count[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= count[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= count[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[3] <= count[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[4] <= count[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[5] <= count[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[6] <= count[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[7] <= count[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[8] <= count[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counterDbl:cols
+clk => always1.IN0
+clk => pCount[0].CLK
+clk => pCount[1].CLK
+clk => pCount[2].CLK
+clk => pCount[3].CLK
+clk => pCount[4].CLK
+clk => pCount[5].CLK
+clk => pCount[6].CLK
+clk => pCount[7].CLK
+clk => pCount[8].CLK
+reset => nCount[0].ACLR
+reset => nCount[1].ACLR
+reset => nCount[2].ACLR
+reset => nCount[3].ACLR
+reset => nCount[4].ACLR
+reset => nCount[5].ACLR
+reset => nCount[6].ACLR
+reset => nCount[7].ACLR
+reset => nCount[8].ACLR
+reset => pCount[0].ACLR
+reset => pCount[1].ACLR
+reset => pCount[2].ACLR
+reset => pCount[3].ACLR
+reset => pCount[4].ACLR
+reset => pCount[5].ACLR
+reset => pCount[6].ACLR
+reset => pCount[7].ACLR
+reset => pCount[8].ACLR
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+count[0] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[3] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[4] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[5] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[6] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[7] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[8] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counterDbl:pCount
+clk => always1.IN0
+clk => pCount[0].CLK
+clk => pCount[1].CLK
+clk => pCount[2].CLK
+reset => nCount[0].ACLR
+reset => nCount[1].ACLR
+reset => nCount[2].ACLR
+reset => pCount[0].ACLR
+reset => pCount[1].ACLR
+reset => pCount[2].ACLR
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+count[0] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counterDbl:dCount
+clk => always1.IN0
+clk => pCount[0].CLK
+clk => pCount[1].CLK
+clk => pCount[2].CLK
+reset => nCount[0].ACLR
+reset => nCount[1].ACLR
+reset => nCount[2].ACLR
+reset => pCount[0].ACLR
+reset => pCount[1].ACLR
+reset => pCount[2].ACLR
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => pCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+enable => nCount.OUTPUTSELECT
+count[0] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counter:clkDiv2
+clk => always0.IN0
+reset => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+count[0] <= count[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|FormatTiming:FmtTiming|counter:rc
+clk => always0.IN0
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+reset => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+enable => count.OUTPUTSELECT
+count[0] <= count[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= count[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= count[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+count[3] <= count[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|DataSelectPath:DataSel
+AnG => Divider.IN1
+AnG => selAlpha.IN0
+AnS => selSemi.IN1
+AnS => selAlpha.IN0
+GM[0] => Equal0.IN5
+GM[1] => Equal0.IN4
+GM[2] => Equal0.IN3
+Divider <= Divider.DB_MAX_OUTPUT_PORT_TYPE
+selAlpha <= selAlpha.DB_MAX_OUTPUT_PORT_TYPE
+selSemi <= selSemi.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|SemiSwitch:SemiSw
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SData.OUTPUTSELECT
+InE => SColour.OUTPUTSELECT
+InE => SColour.OUTPUTSELECT
+InE => SColour.OUTPUTSELECT
+InE => SColour.OUTPUTSELECT
+S4Data[0] => SData.DATAA
+S4Data[1] => SData.DATAA
+S4Data[2] => SData.DATAA
+S4Data[3] => SData.DATAA
+S4Data[4] => SData.DATAA
+S4Data[5] => SData.DATAA
+S4Data[6] => SData.DATAA
+S4Data[7] => SData.DATAA
+S4Colour[0] => SColour.DATAA
+S4Colour[1] => SColour.DATAA
+S4Colour[2] => SColour.DATAA
+S4Colour[3] => SColour.DATAA
+S6Data[0] => SData.DATAB
+S6Data[1] => SData.DATAB
+S6Data[2] => SData.DATAB
+S6Data[3] => SData.DATAB
+S6Data[4] => SData.DATAB
+S6Data[5] => SData.DATAB
+S6Data[6] => SData.DATAB
+S6Data[7] => SData.DATAB
+S6Colour[0] => SColour.DATAB
+S6Colour[1] => SColour.DATAB
+S6Colour[2] => SColour.DATAB
+S6Colour[3] => SColour.DATAB
+SData[0] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[1] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[2] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[3] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[4] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[5] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[6] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[7] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SColour[0] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[1] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[2] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[3] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|Semi4Rom:S4Rom
+Data[0] => semiData.PORTBRADDR
+Data[1] => semiData.PORTBRADDR1
+Data[2] => semiData.RADDR
+Data[3] => semiData.RADDR1
+Data[4] => Add0.IN6
+Data[5] => Add0.IN5
+Data[6] => Add0.IN4
+Data[7] => ~NO_FANOUT~
+Row[0] => LessThan0.IN8
+Row[1] => LessThan0.IN7
+Row[2] => LessThan0.IN6
+Row[3] => LessThan0.IN5
+SData[0] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[1] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[2] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[3] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[4] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[5] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[6] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SData[7] <= SData.DB_MAX_OUTPUT_PORT_TYPE
+SColour[0] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+SColour[1] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+SColour[2] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+SColour[3] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|Semi6Rom:S6Rom
+Data[0] => Selector1.IN5
+Data[1] => Selector0.IN5
+Data[2] => Selector1.IN4
+Data[3] => Selector0.IN4
+Data[4] => Selector1.IN3
+Data[5] => Selector0.IN3
+Data[6] => Add0.IN4
+Data[7] => Add0.IN3
+Row[0] => Decoder0.IN3
+Row[1] => Decoder0.IN2
+Row[2] => Decoder0.IN1
+Row[3] => Decoder0.IN0
+Css => SColour.OUTPUTSELECT
+Css => SColour.OUTPUTSELECT
+Css => SColour.OUTPUTSELECT
+Css => SColour.OUTPUTSELECT
+SData[0] <= semiData.DATAOUT
+SData[1] <= semiData.DATAOUT1
+SData[2] <= semiData.DATAOUT2
+SData[3] <= semiData.DATAOUT3
+SData[4] <= semiData.DATAOUT4
+SData[5] <= semiData.DATAOUT5
+SData[6] <= semiData.DATAOUT6
+SData[7] <= semiData.DATAOUT7
+SColour[0] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[1] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[2] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+SColour[3] <= SColour.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|AlphaIntRom:AIRom
+Data[0] => AData.IN0
+Data[0] => Add1.IN58
+Data[1] => AData.IN0
+Data[1] => Add1.IN57
+Data[2] => AData.IN0
+Data[2] => Add1.IN56
+Data[3] => AData.IN0
+Data[3] => Add1.IN55
+Data[4] => AData.IN0
+Data[4] => Add1.IN54
+Data[5] => AData.IN0
+Data[5] => Add1.IN53
+Row[0] => Add2.IN64
+Row[1] => Add2.IN63
+Row[2] => Add2.IN62
+Row[3] => Add2.IN61
+AData[0] <= <GND>
+AData[1] <= alphaData.DATAOUT
+AData[2] <= alphaData.DATAOUT1
+AData[3] <= alphaData.DATAOUT2
+AData[4] <= alphaData.DATAOUT3
+AData[5] <= alphaData.DATAOUT4
+AData[6] <= alphaData.DATAOUT5
+AData[7] <= alphaData.DATAOUT6
+
+
+|ProtoVDG|AlphaSwitch:AlphaSw
+Data[0] => AData.IN0
+Data[0] => AData.DATAA
+Data[1] => AData.IN0
+Data[1] => AData.DATAA
+Data[2] => AData.IN0
+Data[2] => AData.DATAA
+Data[3] => AData.IN0
+Data[3] => AData.DATAA
+Data[4] => AData.IN0
+Data[4] => AData.DATAA
+Data[5] => AData.IN0
+Data[5] => AData.DATAA
+Data[6] => AData.IN0
+Data[6] => AData.DATAA
+Data[7] => AData.IN0
+Data[7] => AData.DATAA
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+Inv => AData.OUTPUTSELECT
+AData[0] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[1] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[2] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[3] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[4] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[5] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[6] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+AData[7] <= AData.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|RawShift:AlphaSf
+Data[0] => pixelData[0].DATAB
+Data[1] => pixelData[1].DATAB
+Data[2] => pixelData[2].DATAB
+Data[3] => pixelData[3].DATAB
+Data[4] => pixelData[4].DATAB
+Data[5] => pixelData[5].DATAB
+Data[6] => pixelData[6].DATAB
+Data[7] => pixelData[7].DATAB
+Clk => ~NO_FANOUT~
+Divider => Pixel.OUTPUTSELECT
+Divider => Pixel.OUTPUTSELECT
+Divider => always0.IN0
+Load => pixelData[7].OUTPUTSELECT
+Load => pixelData[6].OUTPUTSELECT
+Load => pixelData[5].OUTPUTSELECT
+Load => pixelData[4].OUTPUTSELECT
+Load => pixelData[3].OUTPUTSELECT
+Load => pixelData[2].OUTPUTSELECT
+Load => pixelData[1].OUTPUTSELECT
+Load => pixelData[0].OUTPUTSELECT
+Pixel[0] <= Pixel.DB_MAX_OUTPUT_PORT_TYPE
+Pixel[1] <= Pixel.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|RawShift:GraphSf
+Data[0] => pixelData[0].DATAB
+Data[1] => pixelData[1].DATAB
+Data[2] => pixelData[2].DATAB
+Data[3] => pixelData[3].DATAB
+Data[4] => pixelData[4].DATAB
+Data[5] => pixelData[5].DATAB
+Data[6] => pixelData[6].DATAB
+Data[7] => pixelData[7].DATAB
+Clk => ~NO_FANOUT~
+Divider => Pixel.OUTPUTSELECT
+Divider => Pixel.OUTPUTSELECT
+Divider => always0.IN0
+Load => pixelData[7].OUTPUTSELECT
+Load => pixelData[6].OUTPUTSELECT
+Load => pixelData[5].OUTPUTSELECT
+Load => pixelData[4].OUTPUTSELECT
+Load => pixelData[3].OUTPUTSELECT
+Load => pixelData[2].OUTPUTSELECT
+Load => pixelData[1].OUTPUTSELECT
+Load => pixelData[0].OUTPUTSELECT
+Pixel[0] <= Pixel.DB_MAX_OUTPUT_PORT_TYPE
+Pixel[1] <= Pixel.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|SemiShift:SemiSf
+Data[0] => pixelData[0].DATAB
+Data[1] => pixelData[1].DATAB
+Data[2] => pixelData[2].DATAB
+Data[3] => pixelData[3].DATAB
+Data[4] => pixelData[4].DATAB
+Data[5] => pixelData[5].DATAB
+Data[6] => pixelData[6].DATAB
+Data[7] => pixelData[7].DATAB
+Clk => ~NO_FANOUT~
+Load => pixelData[7].OUTPUTSELECT
+Load => pixelData[6].OUTPUTSELECT
+Load => pixelData[5].OUTPUTSELECT
+Load => pixelData[4].OUTPUTSELECT
+Load => pixelData[3].OUTPUTSELECT
+Load => pixelData[2].OUTPUTSELECT
+Load => pixelData[1].OUTPUTSELECT
+Load => pixelData[0].OUTPUTSELECT
+SColour[0] => Colour.DATAB
+SColour[1] => Colour.DATAB
+SColour[2] => Colour.DATAB
+SColour[3] => Colour.DATAB
+Colour[0] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[1] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[2] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[3] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|ColourMap:AlphaMap
+Pixel[0] => Add0.IN4
+Pixel[0] => Equal0.IN3
+Pixel[1] => Add0.IN3
+Pixel[1] => Equal0.IN2
+Mode[0] => Decoder0.IN2
+Mode[1] => Decoder0.IN1
+Mode[2] => Decoder0.IN0
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Colour[0] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[1] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[2] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[3] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|ColourMap:GraphMap
+Pixel[0] => Add0.IN4
+Pixel[0] => Equal0.IN3
+Pixel[1] => Add0.IN3
+Pixel[1] => Equal0.IN2
+Mode[0] => Decoder0.IN2
+Mode[1] => Decoder0.IN1
+Mode[2] => Decoder0.IN0
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+AnG => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Css => Colour.OUTPUTSELECT
+Colour[0] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[1] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[2] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+Colour[3] <= Colour.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ProtoVDG|ColourMux:Palette
+Colour1[0] => Colour[0].DATAB
+Colour1[1] => Colour[1].DATAB
+Colour1[2] => Colour[2].DATAB
+Colour1[3] => Colour[3].DATAB
+Sel1 => Colour[3].OUTPUTSELECT
+Sel1 => Colour[2].OUTPUTSELECT
+Sel1 => Colour[1].OUTPUTSELECT
+Sel1 => Colour[0].OUTPUTSELECT
+Colour2[0] => Colour.DATAB
+Colour2[1] => Colour.DATAB
+Colour2[2] => Colour.DATAB
+Colour2[3] => Colour.DATAB
+Sel2 => Colour.OUTPUTSELECT
+Sel2 => Colour.OUTPUTSELECT
+Sel2 => Colour.OUTPUTSELECT
+Sel2 => Colour.OUTPUTSELECT
+Colour3[0] => Colour.DATAA
+Colour3[1] => Colour.DATAA
+Colour3[2] => Colour.DATAA
+Colour3[3] => Colour.DATAA
+RGB[0] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[1] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[2] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[3] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[4] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[5] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[6] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[7] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+RGB[8] <= RGB.DB_MAX_OUTPUT_PORT_TYPE
+
+
